@@ -14,20 +14,16 @@ import com.lauracercas.moviecards.service.movie.MovieService;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.ui.Model;
 //import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 //import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 //Imports añadidos
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //@Controller
 @RestController
+@RequestMapping("/api")
 public class MovieController {
 
     // private final MovieService movieService;
@@ -94,7 +90,7 @@ public class MovieController {
     }
 
     // Añadido
-    @GetMapping("/movies/insc/{idActor}/{idMovie}")
+    @PostMapping("/movies/{idMovie}/actors/{idActor}")
     public void registerCard(@PathVariable("idActor") Integer idActor, @PathVariable("idMovie") Integer idMovie) {
         movieService.registerActorInMovie(idActor, idMovie);
     }
