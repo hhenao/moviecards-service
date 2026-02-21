@@ -45,11 +45,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test
+    if: github.ref == 'refs/heads/master'
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
       
     steps:
+      - name: Aprobación manual
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.TOKEN }}
+          approvers: hhenao
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
@@ -62,4 +69,4 @@ jobs:
           app-name: 'moviecards-service-henao'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9AA79AE5BCB144B6A9C65F1723D3D874 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_211D697DA0F343DAB9DB31D180C9D191 }}
